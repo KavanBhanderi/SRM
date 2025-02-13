@@ -2,6 +2,8 @@ from tkinter import *
 from tkinter import ttk, messagebox
 from PIL import Image, ImageTk
 import sqlite3
+from datetime import datetime
+from tkcalendar import DateEntry
 import tkinter as tk 
 
 class StudentManagement:
@@ -12,6 +14,7 @@ class StudentManagement:
         self.root.config(bg="white")
         self.root.focus_force()
 
+        
         # ===== Title =====
         title = Label(self.root, text="Manage Student Details", font=("goudy old style", 20, "bold"), bg="#033054", fg="white").place(x=10, y=15, width=1180, height=35)
 
@@ -58,10 +61,13 @@ class StudentManagement:
         lbl_address = Label(self.root, text="Address", font=("goudy old style", 15, "bold"), bg="white").place(x=10, y=260)
         self.txt_address = Text(self.root, font=("goudy old style", 15), bg="white")
         self.txt_address.place(x=130, y=260, width=570, height=100)
-
+        
+        today = datetime.today().date()
         lbl_dob = Label(self.root, text="DOB", font=("goudy old style", 15, "bold"), bg="white").place(x=350, y=60)
-        Entry(self.root, textvariable=self.var_dob, font=("goudy old style", 15), bg="white").place(x=500, y=60, width=200)
-       
+        self.dob_entry = DateEntry(self.root, textvariable=self.var_dob, font=("goudy old style", 15), bg="white", date_pattern="yyyy-mm-dd")
+        self.dob_entry.place(x=500, y=60, width=200)
+        self.dob_entry.config(mindate=today)
+
         lbl_contact = Label(self.root, text="Contact", font=("goudy old style", 15, "bold"), bg="white").place(x=350, y=100)
         Entry(self.root, textvariable=self.var_contact, font=("goudy old style", 15), bg="white").place(x=500, y=100, width=200)
         
@@ -151,6 +157,14 @@ class StudentManagement:
             messagebox.showinfo("No Results", "No record found for the entered roll number.", parent=self.root)
    
 
+    def validate_dob(self, dob):
+        """ Validate if the DOB is in the format yyyy-mm-dd """
+        try:
+            datetime.strptime(dob, "%Y-%m-%d")
+            return True
+        except ValueError:
+            return False
+    
     def clear(self):
         self.show()
         self.var_rollno.set("")
@@ -238,6 +252,9 @@ class StudentManagement:
             if course == "Select Course" :
                 messagebox.showerror("Error","Please Select Course",parent=self.root)
                 return
+            if not self.validate_dob(dob):
+                messagebox.showerror("Error", "Invalid DOB format. Please use yyyy-mm-dd.", parent=self.root)
+                return
             cur.execute("SELECT * FROM student WHERE roll=? OR email=?", (roll, email))
             row = cur.fetchone()
             if row is not None:
@@ -295,6 +312,9 @@ class StudentManagement:
             if course == "Select Course" :
                 messagebox.showerror("Error","Please Select Course",parent=self.root)
                 return
+            if not self.validate_dob(dob):
+                messagebox.showerror("Error", "Invalid DOB format. Please use yyyy-mm-dd.", parent=self.root)
+                return
             cur.execute("SELECT * FROM student WHERE roll=? OR email=?", (roll, email))
             row = cur.fetchone()
             if row == None:
@@ -316,7 +336,7 @@ class StudentManagement:
 
             ))
             con.commit()
-            messagebox.showinfo("Success", "Student record inserted successfully!", parent=self.root)
+            messagebox.showinfo("Success", "Student record updated successfully!", parent=self.root)
             self.show()
             self.clear()
 

@@ -1,6 +1,7 @@
 from tkinter import *
 from tkinter import messagebox
 import os
+import subprocess
 
 class LoginForm:
     def __init__(self, root):
@@ -38,7 +39,7 @@ class LoginForm:
         elif username == "admin" and password == "12345":  # Example credentials
             messagebox.showinfo("Login Success", "Welcome!")
             self.root.destroy()  # Close the login window
-            os.system("python Dashboard.py")  # Open the main dashboard
+            subprocess.run(["python", "Dashboard.py"]) # Open the main dashboard
         else:
             messagebox.showerror("Error", "Invalid Username or Password")
 

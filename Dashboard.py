@@ -8,6 +8,7 @@ from Course import CourseClass
 from Student import StudentManagement
 from Result import ResultClass
 from ViewReport import ViewReportClass
+
 class RMS:
     def __init__(self,root):
         self.root=root
@@ -70,13 +71,13 @@ class RMS:
         self.new_obj = StudentManagement(self.new_win)
 
     def add_result(self):
-        self.new_win = Toplevel(self.root)
-        self.new_obj = ResultClass(self.new_win)
+       self.new_win = Toplevel(self.root)
+       self.new_obj = ResultClass(self.new_win)
 
     def add_viewreport(self):
         self.new_win = Toplevel(self.root)
         self.new_obj = ViewReportClass(self.new_win)
-
+        
     def total_course(self):
         con = sqlite3.connect(database="rms.db")
         cur = con.cursor()
@@ -102,9 +103,7 @@ class RMS:
         self.lbl_result.after(200,self.total_result)
 
     def logout(self):
-        if messagebox.askyesno("Logout", "Are you sure you want to log out?"):
-            self.root.destroy()
-            os.system("python Login.py")
+       pass
 
     def exit_app(self):
         """Exit the application safely."""
