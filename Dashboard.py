@@ -8,6 +8,7 @@ from Course import CourseClass
 from Student import StudentManagement
 from Result import ResultClass
 from ViewReport import ViewReportClass
+from Login import LoginForm
 
 class RMS:
     def __init__(self,root):
@@ -103,8 +104,13 @@ class RMS:
         self.lbl_result.after(200,self.total_result)
 
     def logout(self):
-       pass
+        """Simulate logout and redirect to login page."""
+        if messagebox.askyesno("Logout", "Are you sure you want to logout?"):
+            self.root.withdraw()
+            login_window = Toplevel(self.root)
+            login_obj = LoginForm(login_window)
 
+    
     def exit_app(self):
         """Exit the application safely."""
         if messagebox.askyesno("Exit", "Are you sure you want to exit?"):
