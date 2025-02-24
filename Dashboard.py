@@ -14,8 +14,17 @@ class RMS:
     def __init__(self,root):
         self.root=root
         self.root.title("Student Result Management")
-        self.root.geometry("1366x768+0+0")
+        window_width = 1366  # Set desired window width
+        window_height = 768  # Set desired window height
+        screen_width = self.root.winfo_screenwidth()
+        screen_height = self.root.winfo_screenheight()
+        position_top = int(screen_height / 2 - window_height / 2)
+        position_right = int(screen_width / 2 - window_width / 2)
+        self.root.geometry(f"{window_width}x{window_height}+{position_right}+{position_top}")
+        self.root.resizable(False, False)
         self.root.config(bg="white")
+        # self.root.geometry("1366x768+0+0")
+        # self.root.config(bg="white")
 
         # ===== Image =====
         image_path = os.path.join("Image", "student3_117884.png")
