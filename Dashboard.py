@@ -73,21 +73,30 @@ class RMS:
         self.total_result()
 
     def add_course(self):
+        if hasattr(self, 'new_win') and self.new_win.winfo_exists():
+            self.new_win.destroy()
         self.new_win = Toplevel(self.root)
         self.new_obj = CourseClass(self.new_win)
     
     def add_student(self):
+        if hasattr(self, 'new_win') and self.new_win.winfo_exists():
+            self.new_win.destroy()
         self.new_win = Toplevel(self.root)
         self.new_obj = StudentManagement(self.new_win)
 
     def add_result(self):
-       self.new_win = Toplevel(self.root)
-       self.new_obj = ResultClass(self.new_win)
+        if hasattr(self, 'new_win') and self.new_win.winfo_exists():
+            self.new_win.destroy()
+        self.new_win = Toplevel(self.root)
+        self.new_obj = ResultClass(self.new_win)
+
 
     def add_viewreport(self):
+        if hasattr(self, 'new_win') and self.new_win.winfo_exists():
+            self.new_win.destroy()
         self.new_win = Toplevel(self.root)
         self.new_obj = ViewReportClass(self.new_win)
-        
+
     def total_course(self):
         con = sqlite3.connect(database="rms.db")
         cur = con.cursor()

@@ -10,19 +10,11 @@ class ViewReportClass:
         self.root.title("Manage Student Details")
         screen_width = self.root.winfo_screenwidth()
         screen_height = self.root.winfo_screenheight()
-
-        # Set the window's width and height
         window_width = 1200
         window_height = 480
-
-        # Calculate the position to center the window
         position_top = int(screen_height / 2 - window_height / 2)
         position_left = int(screen_width / 2 - window_width / 2)
-
-        # Set the geometry of the window to the calculated position and size
         self.root.geometry(f"{window_width}x{window_height}+{position_left}+{position_top}")
-
-        # Set the background color
         self.root.config(bg="white")
         self.root.resizable(False, False)
         self.root.focus_force()

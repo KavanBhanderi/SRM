@@ -9,20 +9,12 @@ class LoginForm:
         self.root.title("Login Form")
         window_width = 450
         window_height = 350
-        
-        # Get the screen width and height
         screen_width = self.root.winfo_screenwidth()
         screen_height = self.root.winfo_screenheight()
-        
-        # Calculate the x and y position to center the window
         position_top = int(screen_height / 2 - window_height / 2)
         position_right = int(screen_width / 2 - window_width / 2)
-        
-        # Set the geometry of the window to be centered
         self.root.geometry(f"{window_width}x{window_height}+{position_right}+{position_top}")
         self.root.resizable(False, False)
-        
-        # Set background color
         self.root.config(bg="#e6f7ff")
 
         # Title
@@ -51,10 +43,10 @@ class LoginForm:
 
         if username == "" or password == "":
             messagebox.showerror("Error", "All fields are required")
-        elif username == "admin" and password == "12345":  # Example credentials
+        elif username == "admin" and password == "12345":
             messagebox.showinfo("Login Success", "Welcome!")
-            self.root.destroy()  # Close the login window
-            subprocess.run(["python", "Dashboard.py"]) # Open the main dashboard
+            self.root.destroy()
+            subprocess.run(["python", "Dashboard.py"])
         else:
             messagebox.showerror("Error", "Invalid Username or Password")
 
